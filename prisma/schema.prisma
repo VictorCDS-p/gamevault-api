@@ -1,0 +1,107 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum GameStatus {
+  PLAYING
+  COMPLETED
+  BACKLOG
+  DROPPED
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  email     String   @unique
+  password  String
+  avatar    String?
+  role      Role     @default(USER)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  library     Library[]
+  collections Collection[]
+}
+
+model Game {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String?
+
+  steamAppId  Int?     @unique
+
+  coverImage  String?
+  bannerImage String?
+
+  developer   String?
+  publisher   String?
+  releaseDate DateTime?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  categoryId  Int
+  category    Category @relation(fields: [categoryId], references: [id])
+
+  libraries       Library[]
+  collectionGames CollectionGame[]
+}
+
+model Category {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+
+  games Game[]
+}
+
+model Library {
+  id      Int @id @default(autoincrement())
+
+  userId  Int
+  gameId  Int
+
+  status  GameStatus @default(BACKLOG)
+
+  addedAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  game Game @relation(fields: [gameId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, gameId])
+}
+
+model Collection {
+  id          Int    @id @default(autoincrement())
+  name        String
+  description String?
+
+  userId      Int
+
+  createdAt   DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  games CollectionGame[]
+}
+
+model CollectionGame {
+  id           Int @id @default(autoincrement())
+
+  collectionId Int
+  gameId       Int
+
+  collection Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+  game       Game       @relation(fields: [gameId], references: [id], onDelete: Cascade)
+
+  @@unique([collectionId, gameId])
+}
