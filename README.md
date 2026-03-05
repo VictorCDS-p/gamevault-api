@@ -24,7 +24,7 @@ API **Full Stack** para gerenciamento de jogos, biblioteca pessoal e coleções.
 ### 1️⃣ Clonar repositório
 
 ```bash
-git clone <seu-repo-url>
+git clone <https://github.com/VictorCDS-p/gamevault-api>
 cd gamevault-api
 ```
 
