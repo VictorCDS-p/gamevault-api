@@ -9,7 +9,7 @@ async function promoteUserToAdmin(userId) {
   console.log("User updated:", user);
 }
 
-promoteUserToAdmin(5) // substitua pelo ID do usuário
+promoteUserToAdmin(ID) // substitua pelo ID do usuário
   .then(() => process.exit(0))
   .catch(e => {
     console.error(e);
