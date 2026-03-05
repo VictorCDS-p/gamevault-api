@@ -192,13 +192,14 @@ node updateRole.js
 | `/categories/:id`        | GET    | Busca categoria com jogos  | ✅                |
 | `/categories`            | POST   | Cria nova categoria        | **Admin apenas** |
 
+---
 ### 📥 Importando a coleção
 
 1. Abra o Postman.
 2. Clique em **Import** → **Upload Files**.
 3. Selecione o arquivo `gamevault-api.postman_collection.json` localizado em `gamevault-api/collection/`.
 4. A coleção será importada com todos os endpoints prontos para uso.
-
+---
 ## 📝 Rodando o Projeto
 
 ```bash
