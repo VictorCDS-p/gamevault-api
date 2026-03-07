@@ -8,7 +8,11 @@ const router = Router();
 router.use(authMiddleware);
 
 router.get("/me", userController.getProfile);
+
+router.get("/me/profile", userController.getProfileWithStats);
+
 router.put("/me", userController.updateProfile);
+
 router.delete("/me", userController.deleteProfile);
 
 router.get("/", roleMiddleware("ADMIN"), userController.listUsers);

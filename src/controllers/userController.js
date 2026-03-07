@@ -20,6 +20,24 @@ export const userController = {
 
   },
 
+  async getProfileWithStats(req, res) {
+
+    try {
+
+      const profile = await userService.getProfileWithStats(req.user.id);
+
+      res.json(profile);
+
+    } catch (error) {
+
+      res.status(400).json({
+        message: error.message
+      });
+
+    }
+
+  },
+
   async updateProfile(req, res) {
 
     try {
@@ -38,25 +56,25 @@ export const userController = {
 
   },
 
-async deleteProfile(req, res) {
+  async deleteProfile(req, res) {
 
-  try {
+    try {
 
-    await userService.deleteUser(req.user.id);
+      await userService.deleteUser(req.user.id);
 
-    return res.status(200).json({
-      message: "User deleted successfully"
-    });
+      return res.status(200).json({
+        message: "User deleted successfully"
+      });
 
-  } catch (error) {
+    } catch (error) {
 
-    return res.status(400).json({
-      message: error.message
-    });
+      return res.status(400).json({
+        message: error.message
+      });
 
-  }
+    }
 
-},
+  },
 
   async listUsers(req, res) {
 

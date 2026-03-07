@@ -39,6 +39,42 @@ export const userRepository = {
     });
   },
 
+  async getLibraryStats(userId) {
+
+    const totalGames = await prisma.library.count({
+      where: { userId }
+    });
+
+    const completed = await prisma.library.count({
+      where: {
+        userId,
+        status: "COMPLETED"
+      }
+    });
+
+    const playing = await prisma.library.count({
+      where: {
+        userId,
+        status: "PLAYING"
+      }
+    });
+
+    const backlog = await prisma.library.count({
+      where: {
+        userId,
+        status: "BACKLOG"
+      }
+    });
+
+    return {
+      totalGames,
+      completed,
+      playing,
+      backlog
+    };
+
+  },
+
   update(id, data) {
     return prisma.user.update({
       where: { id },

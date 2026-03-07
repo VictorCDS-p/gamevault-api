@@ -6,6 +6,19 @@ export const userService = {
     return userRepository.findById(userId);
   },
 
+  async getProfileWithStats(userId) {
+
+    const user = await userRepository.findById(userId);
+
+    const stats = await userRepository.getLibraryStats(userId);
+
+    return {
+      ...user,
+      stats
+    };
+
+  },
+
   async getAllUsers() {
     return userRepository.findAll();
   },
