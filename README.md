@@ -1,5 +1,3 @@
-Perfeito! O erro que você está vendo acontece porque o **Prisma Client** ainda não foi gerado depois de criar ou atualizar o schema. Precisamos incluir o passo `prisma generate` no README, antes de rodar a seed ou iniciar o servidor. Aqui está a versão atualizada do tutorial:
-
 ---
 
 # 🎮 GameVault API
