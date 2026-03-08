@@ -16,13 +16,13 @@ API **Full Stack** para gerenciamento de jogos, biblioteca pessoal e coleções.
 git clone https://github.com/VictorCDS-p/gamevault-api
 cd gamevault-api
 ```
-
+---
 ### 2️⃣ Instalar dependências
 
 ```bash
 npm install
 ```
-
+---
 ### 3️⃣ Configurar `.env`
 
 Crie um arquivo `.env` na raiz do projeto:
@@ -31,13 +31,13 @@ Crie um arquivo `.env` na raiz do projeto:
 DATABASE_URL="postgresql://usuario:senha@localhost:5432/gamevault"
 JWT_SECRET="supersecret"
 ```
-
+---
 ### 4️⃣ Criar banco e aplicar migrations
 
 ```bash
 npx prisma migrate dev --name init
 ```
-
+---
 ### 5️⃣ Gerar Prisma Client
 
 Sempre que você alterar o schema ou após instalar o projeto pela primeira vez, **gere o client**:
@@ -51,7 +51,7 @@ npx prisma generate
 > ```
 > Error: @prisma/client did not initialize yet. Please run "prisma generate"...
 > ```
-
+---
 ### 6️⃣ Popular banco com seed
 
 ```bash
@@ -67,7 +67,7 @@ Isso criará:
 * Categorias e jogos pré-carregados a partir do JSON.
 
 ---
-
+---
 ### 7️⃣ Reset / Limpar banco de dados
 
 Se quiser **limpar todo o banco e começar do zero**, use:
