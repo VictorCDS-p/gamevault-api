@@ -280,5 +280,3 @@ server.js
 ```
 
 ---
-
-Quer que eu faça isso também?
