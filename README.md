@@ -1,5 +1,3 @@
----
-
 # 🎮 GameVault API
 
 API **Full Stack** para gerenciamento de jogos, biblioteca pessoal e coleções. Permite criar usuários, autenticação, gerenciamento de jogos, categorias, coleções e biblioteca pessoal. O projeto utiliza **Node.js, Express, Prisma e PostgreSQL**.
