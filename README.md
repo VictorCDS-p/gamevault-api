@@ -66,7 +66,7 @@ Isso criará:
   * **Senha:** `admin123`
 * Categorias e jogos pré-carregados a partir do JSON.
 
----
+
 ---
 ### 7️⃣ Reset / Limpar banco de dados
 
