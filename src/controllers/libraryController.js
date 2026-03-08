@@ -19,7 +19,6 @@ async removeGame(req, res) {
   try {
     const userId = Number(req.user.id);
     const gameId = Number(req.params.gameId);
-    console.log("Controller removeGame:", { userId, gameId }); // log
 
     await libraryService.removeGame(userId, gameId);
     res.json({ message: "Game removed from library" });
