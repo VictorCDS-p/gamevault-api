@@ -1,3 +1,5 @@
+---
+
 # 🎮 GameVault API
 
 API **Full Stack** para gerenciamento de jogos, biblioteca pessoal e coleções. Permite criar usuários, autenticação, gerenciamento de jogos, categorias, coleções e biblioteca pessoal. O projeto utiliza **Node.js, Express, Prisma e PostgreSQL**.
@@ -41,15 +43,13 @@ DATABASE_URL="postgresql://usuario:senha@localhost:5432/gamevault"
 JWT_SECRET="supersecret"
 ```
 
-### 4️⃣ Rodar Prisma e Seed
-
-Crie o banco (caso ainda não exista) e aplique a migration inicial:
+### 4️⃣ Criar banco e aplicar migrations
 
 ```bash
 npx prisma migrate dev --name init
 ```
 
-Popule o banco com dados iniciais:
+### 5️⃣ Popular banco com seed
 
 ```bash
 node prisma/seed.js
@@ -63,7 +63,9 @@ Isso criará:
   * **Senha:** `admin123`
 * Categorias e jogos pré-carregados a partir do JSON.
 
-### 5️⃣ Reset / Limpar banco de dados
+---
+
+### 6️⃣ Reset / Limpar banco de dados
 
 Se quiser **limpar todo o banco e começar do zero**, use:
 
@@ -78,6 +80,55 @@ Isso vai:
 * Executar o seed (se configurado)
 
 > ⚠️ Todos os dados existentes serão perdidos.
+
+---
+
+## 🔝 Transformando um Usuário em Admin
+
+Agora você pode promover qualquer usuário a **ADMIN** passando o ID diretamente no terminal.
+
+### 1️⃣ Crie ou edite o arquivo `updateRole.js`:
+
+```javascript
+import dotenv from "dotenv";
+dotenv.config();
+import prisma from "./src/config/database.js";
+
+// Pega o ID do usuário do argumento de linha de comando
+const userId = process.argv[2];
+
+if (!userId) {
+  console.error("❌ Erro: Informe o ID do usuário como argumento.");
+  console.log("Exemplo: node updateRole.js 1");
+  process.exit(1);
+}
+
+async function promoteUserToAdmin(userId) {
+  try {
+    const user = await prisma.user.update({
+      where: { id: Number(userId) },
+      data: { role: "ADMIN" },
+    });
+    console.log("✅ Usuário promovido a ADMIN:", user);
+  } catch (error) {
+    console.error("❌ Erro ao atualizar usuário:", error.message);
+  } finally {
+    await prisma.$disconnect();
+  }
+}
+
+promoteUserToAdmin(userId);
+```
+
+### 2️⃣ Execute o script:
+
+```bash
+node updateRole.js 1
+```
+
+> Substitua `1` pelo ID do usuário que deseja promover.
+> Alternativamente, você pode usar o **usuário admin da seed**:
+> **E-mail:** `admin@gamevault.com` | **Senha:** `admin123`
 
 ---
 
@@ -120,43 +171,6 @@ Todas as rotas de usuário exigem **token JWT**.
 | `/users/me` | PUT    | Atualiza perfil (`username`, `avatar`)     |
 | `/users/me` | DELETE | Deleta conta do usuário logado             |
 | `/users`    | GET    | Lista todos os usuários (**Admin apenas**) |
-
----
-
-## 🔝 Transformando um Usuário em Admin
-
-1️⃣ Crie ou edite o arquivo `updateRole.js`:
-
-```javascript
-import prisma from "./src/config/database.js";
-
-async function promoteUserToAdmin(userId) {
-  const user = await prisma.user.update({
-    where: { id: userId },
-    data: { role: "ADMIN" }
-  });
-
-  console.log("User updated:", user);
-}
-
-// Substitua pelo ID do usuário que deseja promover
-promoteUserToAdmin(ID)
-  .then(() => process.exit(0))
-  .catch(e => {
-    console.error(e);
-    process.exit(1);
-  });
-```
-
-2️⃣ Execute o script:
-
-```bash
-node updateRole.js
-```
-
-> Substitua `ID` pelo usuário que deseja promover.
-> Alternativamente, use o **usuário admin da seed**:
-> **E-mail:** `admin@gamevault.com` | **Senha:** `admin123`
 
 ---
 
@@ -269,3 +283,5 @@ server.js
 ```
 
 ---
+
+Quer que eu faça isso também?
