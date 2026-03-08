@@ -259,6 +259,6 @@ server.js
 
 O frontend do GameVault é responsável pela interface de usuário, incluindo autenticação, gerenciamento de jogos, biblioteca e coleções. Consulte o repositório do frontend para instruções detalhadas:
 
-[Link para o Backend](https://github.com/VictorCDS-p/gamevault-frontend)
+[Link para o Frontend](https://github.com/VictorCDS-p/gamevault-frontend)
 
 ---
