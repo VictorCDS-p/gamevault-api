@@ -1,21 +1,10 @@
+Perfeito! O erro que você está vendo acontece porque o **Prisma Client** ainda não foi gerado depois de criar ou atualizar o schema. Precisamos incluir o passo `prisma generate` no README, antes de rodar a seed ou iniciar o servidor. Aqui está a versão atualizada do tutorial:
+
 ---
 
 # 🎮 GameVault API
 
 API **Full Stack** para gerenciamento de jogos, biblioteca pessoal e coleções. Permite criar usuários, autenticação, gerenciamento de jogos, categorias, coleções e biblioteca pessoal. O projeto utiliza **Node.js, Express, Prisma e PostgreSQL**.
-
----
-
-## 🔧 Tecnologias
-
-* Node.js
-* Express.js
-* Prisma ORM
-* PostgreSQL
-* JWT para autenticação
-* Bcrypt para hash de senhas
-* CORS
-* Axios (para futuras integrações com frontend)
 
 ---
 
@@ -49,7 +38,21 @@ JWT_SECRET="supersecret"
 npx prisma migrate dev --name init
 ```
 
-### 5️⃣ Popular banco com seed
+### 5️⃣ Gerar Prisma Client
+
+Sempre que você alterar o schema ou após instalar o projeto pela primeira vez, **gere o client**:
+
+```bash
+npx prisma generate
+```
+
+> ⚠️ Esse passo é obrigatório antes de rodar seeds ou o servidor, caso contrário você verá:
+>
+> ```
+> Error: @prisma/client did not initialize yet. Please run "prisma generate"...
+> ```
+
+### 6️⃣ Popular banco com seed
 
 ```bash
 node prisma/seed.js
@@ -65,7 +68,7 @@ Isso criará:
 
 ---
 
-### 6️⃣ Reset / Limpar banco de dados
+### 7️⃣ Reset / Limpar banco de dados
 
 Se quiser **limpar todo o banco e começar do zero**, use:
 
@@ -80,8 +83,6 @@ Isso vai:
 * Executar o seed (se configurado)
 
 > ⚠️ Todos os dados existentes serão perdidos.
-
----
 
 ## 🔝 Transformando um Usuário em Admin
 
