@@ -13,6 +13,9 @@ export const libraryService = {
   },
 
   async removeGame(userId, gameId) {
+    const exists = await libraryRepository.findGameInLibrary(userId, gameId);
+    if (!exists) throw new Error("Game not in library");
+
     return libraryRepository.removeGame(userId, gameId);
   },
 
@@ -25,5 +28,9 @@ export const libraryService = {
 
   async listLibrary(userId) {
     return libraryRepository.listUserLibrary(userId);
+  },
+
+  async findGame(userId, gameId) {
+    return libraryRepository.findGameInLibrary(userId, gameId);
   },
 };
