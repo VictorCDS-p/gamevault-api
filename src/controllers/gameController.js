@@ -20,25 +20,20 @@ export const gameController = {
 
   },
 
-  async list(req, res) {
+async list(req, res) {
+  try {
+    const { category } = req.query;
+    const games = await gameService.list(category);
 
-    try {
+    const sortedGames = games.sort((a, b) => a.title.localeCompare(b.title, "pt", { sensitivity: "base" }));
 
-      const { category } = req.query;
-
-      const games = await gameService.list(category);
-
-      res.json(games);
-
-    } catch (error) {
-
-      res.status(400).json({
-        message: error.message
-      });
-
-    }
-
-  },
+    res.json(sortedGames);
+  } catch (error) {
+    res.status(400).json({
+      message: error.message
+    });
+  }
+},
 
   async findById(req, res) {
 

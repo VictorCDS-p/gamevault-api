@@ -1,10 +1,14 @@
 import { libraryService } from "../services/libraryService.js";
 
-export const libraryController = {
+const ALLOWED_STATUSES = ["PLAYING", "COMPLETED", "BACKLOG", "DROPPED"];
 
+export const libraryController = {
   async addGame(req, res) {
     try {
-      const game = await libraryService.addGame(req.user.id, Number(req.params.gameId));
+      const game = await libraryService.addGame(
+        req.user.id,
+        Number(req.params.gameId)
+      );
       res.status(201).json(game);
     } catch (error) {
       res.status(400).json({ message: error.message });
@@ -23,7 +27,21 @@ export const libraryController = {
   async updateStatus(req, res) {
     try {
       const { status } = req.body;
-      const updated = await libraryService.updateStatus(req.user.id, Number(req.params.gameId), status);
+
+      if (!status || !ALLOWED_STATUSES.includes(status)) {
+        return res.status(400).json({
+          message: `Status inválido. Deve ser um dos: ${ALLOWED_STATUSES.join(
+            ", "
+          )}`,
+        });
+      }
+
+      const updated = await libraryService.updateStatus(
+        req.user.id,
+        Number(req.params.gameId),
+        status
+      );
+
       res.json(updated);
     } catch (error) {
       res.status(400).json({ message: error.message });
@@ -37,6 +55,5 @@ export const libraryController = {
     } catch (error) {
       res.status(400).json({ message: error.message });
     }
-  }
-
+  },
 };

@@ -2,7 +2,6 @@ import { libraryRepository } from "../repositories/libraryRepository.js";
 import { gameRepository } from "../repositories/gameRepository.js";
 
 export const libraryService = {
-
   async addGame(userId, gameId) {
     const game = await gameRepository.findById(gameId);
     if (!game) throw new Error("Game not found");
@@ -26,6 +25,5 @@ export const libraryService = {
 
   async listLibrary(userId) {
     return libraryRepository.listUserLibrary(userId);
-  }
-
+  },
 };

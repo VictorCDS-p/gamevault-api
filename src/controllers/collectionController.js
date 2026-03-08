@@ -11,14 +11,19 @@ export const collectionController = {
     }
   },
 
-  async list(req, res) {
-    try {
-      const collections = await collectionService.list(req.user.id);
-      res.json(collections);
-    } catch (error) {
-      res.status(400).json({ message: error.message });
-    }
-  },
+async list(req, res) {
+  try {
+    const collections = await collectionService.list(req.user.id);
+
+    const sortedCollections = collections.sort((a, b) =>
+      a.name.localeCompare(b.name, "pt", { sensitivity: "base" })
+    );
+
+    res.json(sortedCollections);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+},
 
   async update(req, res) {
     try {
