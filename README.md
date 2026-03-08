@@ -1,5 +1,3 @@
----
-
 # 🎮 GameVault API
 
 API **Full Stack** para gerenciamento de jogos, biblioteca pessoal e coleções. Permite criar usuários, autenticação, gerenciamento de jogos, categorias, coleções e biblioteca pessoal. O projeto utiliza **Node.js, Express, Prisma e PostgreSQL**.
@@ -19,7 +17,7 @@ API **Full Stack** para gerenciamento de jogos, biblioteca pessoal e coleções.
 
 ---
 
-## ⚙️ Configuração
+## ⚙️ Configuração do Projeto
 
 ### 1️⃣ Clonar repositório
 
@@ -45,13 +43,13 @@ JWT_SECRET="supersecret"
 
 ### 4️⃣ Rodar Prisma e Seed
 
-Crie o banco (caso ainda não exista):
+Crie o banco (caso ainda não exista) e aplique a migration inicial:
 
 ```bash
 npx prisma migrate dev --name init
 ```
 
-Popule o banco com a seed:
+Popule o banco com dados iniciais:
 
 ```bash
 node prisma/seed.js
@@ -63,8 +61,23 @@ Isso criará:
 
   * **E-mail:** `admin@gamevault.com`
   * **Senha:** `admin123`
-
 * Categorias e jogos pré-carregados a partir do JSON.
+
+### 5️⃣ Reset / Limpar banco de dados
+
+Se quiser **limpar todo o banco e começar do zero**, use:
+
+```bash
+npx prisma migrate reset
+```
+
+Isso vai:
+
+* Apagar todas as tabelas
+* Reaplicar as migrations
+* Executar o seed (se configurado)
+
+> ⚠️ Todos os dados existentes serão perdidos.
 
 ---
 
@@ -112,8 +125,6 @@ Todas as rotas de usuário exigem **token JWT**.
 
 ## 🔝 Transformando um Usuário em Admin
 
-Para testes, é possível promover um usuário existente a **ADMIN** manualmente:
-
 1️⃣ Crie ou edite o arquivo `updateRole.js`:
 
 ```javascript
@@ -143,8 +154,8 @@ promoteUserToAdmin(ID)
 node updateRole.js
 ```
 
-> ⚠️ Substitua o ID pelo usuário que deseja promover.
-> Caso não queira usar o script, utilize o **usuário admin da seed**:
+> Substitua `ID` pelo usuário que deseja promover.
+> Alternativamente, use o **usuário admin da seed**:
 > **E-mail:** `admin@gamevault.com` | **Senha:** `admin123`
 
 ---
@@ -193,22 +204,23 @@ node updateRole.js
 | `/categories`            | POST   | Cria nova categoria        | **Admin apenas** |
 
 ---
-### 📥 Importando a coleção
+
+## 📥 Importando a coleção
 
 1. Abra o Postman.
-2. Clique em **Import** → **Upload Files**.
-3. Selecione o arquivo `gamevault-api.postman_collection.json` localizado em `gamevault-api/collection/`.
-4. A coleção será importada com todos os endpoints prontos para uso.
+2. Clique em **Import → Upload Files**.
+3. Selecione `gamevault-api.postman_collection.json` em `gamevault-api/collection/`.
+4. Todos os endpoints serão importados e prontos para uso.
+
 ---
+
 ## 📝 Rodando o Projeto
 
 ```bash
 npm run dev
 ```
 
-O servidor rodará em `http://localhost:3000`.
-
-Todas as rotas podem ser testadas usando **Postman**, conforme a coleção fornecida.
+Servidor rodará em `http://localhost:3000`.
 
 ---
 
@@ -255,10 +267,5 @@ updateRole.js
 .env
 server.js
 ```
-## 📖 Documentação do Frontend
-
-O frontend do GameVault é responsável pela interface de usuário, incluindo autenticação, gerenciamento de jogos, biblioteca e coleções. Consulte o repositório do frontend para instruções detalhadas:
-
-[Link para o Frontend](https://github.com/VictorCDS-p/gamevault-frontend)
 
 ---
